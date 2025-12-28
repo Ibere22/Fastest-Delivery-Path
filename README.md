@@ -78,7 +78,7 @@ Application starts on `http://localhost:8080`
 
 ## API Usage Examples
 
-**Note:** I tested the API using Postman. cURL examples are provided below for reference.
+**Note:** I tested the API using Postman. Below are working examples for different shells.
 
 ### Create/Update Roads
 
@@ -93,15 +93,26 @@ Application starts on `http://localhost:8080`
 ]
 ```
 
-**cURL (for reference):**
+**PowerShell (Invoke-WebRequest):**
+```powershell
+iwr -Uri "http://localhost:8080/roads" -Method POST -ContentType "application/json" -Body '[{"fromCity":"Tbilisi","toCity":"Batumi","travelTimeMinutes":360},{"fromCity":"Batumi","toCity":"Gonio","travelTimeMinutes":45}]' -UseBasicParsing
+```
+
+**WSL/Linux (curl):**
 ```bash
-curl -X POST http://localhost:8080/roads \
+# Get Windows host IP (run in WSL):
+WINDOWS_IP=$(ip route show | grep default | awk '{print $3}')
+
+# Then use it to make the request:
+curl -X POST http://$WINDOWS_IP:8080/roads \
   -H "Content-Type: application/json" \
   -d '[
     {"fromCity": "Tbilisi", "toCity": "Batumi", "travelTimeMinutes": 360},
     {"fromCity": "Batumi", "toCity": "Gonio", "travelTimeMinutes": 45}
   ]'
 ```
+
+**Note:** In WSL, `localhost` doesn't resolve to Windows. Use the Windows host IP (e.g., `172.x.x.x`) instead.
 
 **Response:** `201 Created`
 ```json
@@ -125,12 +136,23 @@ curl -X POST http://localhost:8080/roads \
 }
 ```
 
-**cURL (for reference):**
+**PowerShell (Invoke-WebRequest):**
+```powershell
+iwr -Uri "http://localhost:8080/routes/fastest" -Method POST -ContentType "application/json" -Body '{"sourceCity":"Tbilisi","destinationCity":"Gonio"}' -UseBasicParsing
+```
+
+**WSL/Linux (curl):**
 ```bash
-curl -X POST http://localhost:8080/routes/fastest \
+# Get Windows host IP (run in WSL):
+WINDOWS_IP=$(ip route show | grep default | awk '{print $3}')
+
+# Then use it to make the request:
+curl -X POST http://$WINDOWS_IP:8080/routes/fastest \
   -H "Content-Type: application/json" \
   -d '{"sourceCity": "Tbilisi", "destinationCity": "Gonio"}'
 ```
+
+**Note:** In WSL, `localhost` doesn't resolve to Windows. Use the Windows host IP (e.g., `172.x.x.x`) instead.
 
 **Response:** `200 OK`
 ```json
