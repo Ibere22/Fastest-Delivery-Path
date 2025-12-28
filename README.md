@@ -78,6 +78,8 @@ Application starts on `http://localhost:8080`
 
 ## API Usage Examples
 
+**Note:** I tested the API using Postman. cURL examples are provided below for reference.
+
 ### Create/Update Roads
 
 **Endpoint:** `POST /roads`
@@ -91,7 +93,7 @@ Application starts on `http://localhost:8080`
 ]
 ```
 
-**cURL:**
+**cURL (for reference):**
 ```bash
 curl -X POST http://localhost:8080/roads \
   -H "Content-Type: application/json" \
@@ -123,7 +125,7 @@ curl -X POST http://localhost:8080/roads \
 }
 ```
 
-**cURL:**
+**cURL (for reference):**
 ```bash
 curl -X POST http://localhost:8080/routes/fastest \
   -H "Content-Type: application/json" \
